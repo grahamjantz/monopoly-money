@@ -6,7 +6,10 @@ import Main from './features/main/Main'
 import Header from './features/header/Header';
 import GetPlayerNames from './features/GetPlayerNames/GetPlayerNames';
 import StartingAmount from './features/StartingAmount/StartingAmount';
-import MakePayment from './features/MakePayment/MakePayment';
+import Rent from './features/Rent/Rent';
+import Buy from './features/Buy/Buy'
+import Sell from './features/Sell/Sell'
+import Trade from './features/Trade/Trade'
 
 import { useSelector } from 'react-redux'
 import { selectCurrentCard } from './features/CurrentCard/CurrentCardSlice';
@@ -28,7 +31,13 @@ function App() {
     } else if (currentCard === 'Main') {
       return <Main />
     } else if (currentCard === 'MakePayment') {
-      return <MakePayment />
+      return <Rent />
+    } else if (currentCard === 'Buy') {
+      return <Buy />
+    } else if (currentCard === 'Sell') {
+      return <Sell />
+    } else if (currentCard === 'Trade') {
+      return <Trade />
     }
   }
 

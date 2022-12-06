@@ -53,12 +53,22 @@ const GetPlayerNames = () => {
   )
   const [name, setName] = useState('');
   const [piece, setPiece] = useState('')
-  const [players, setPlayers] = useState([])
+  const [players, setPlayers] = useState([{
+    name: 'Bank',
+    piece: 'bank',
+    bank: 1000000000
+},])
   
   const handleSubmit = (e) => {
     e.preventDefault()
     if (name !== '' && piece !== '' && piece !== '--Please Choose an Option--' && checkPlayersCount < playersCount) {
-      setPlayers([...players, {name: name, piece: piece, bank: 1500}])
+      setPlayers([...players, {
+        name: name, 
+        piece: piece, 
+        bank: 1500, 
+        net_worth: 1500,
+      }
+    ])
       const tempOptions = options.filter((option) => {
         if (option.value !== piece) {
           return option
@@ -73,7 +83,7 @@ const GetPlayerNames = () => {
   }
 
   const handleDone = () => {
-    if (players.length === playersCount) {
+    if (players.length === playersCount + 1) {
       dispatch(addPlayers(players))
       dispatch(nextCard('StartingAmount'))
     }
@@ -120,13 +130,13 @@ const GetPlayerNames = () => {
             <input type='submit' value='Add Player'/>
             {checkPlayerNumber()}
         </form>
-        {players.map((player) => {
-          return (
-            <div key={player.piece} className='get-player-names-list'>
-              <p>{player.name}</p>
-              <p>{player.piece}</p>
-            </div>
-          )
+        {players.slice(1).map((player) => {
+            return (
+              <div key={player.piece} className='get-player-names-list'>
+                <p>{player.name}</p>
+                <p>{player.piece}</p>
+              </div>
+            )
         })}
         <button onClick={handleDone}>Done</button>
         <button onClick={handleGoBack}>Go Back</button>

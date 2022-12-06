@@ -1,45 +1,33 @@
 import React, { useState } from 'react'
-import './MakePayment.css'
+import '../Rent/Rent.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
-import { selectPlayersList } from '../PlayersList/PlayersListSlice'
+import { selectPlayersList, sell } from '../PlayersList/PlayersListSlice'
 
-const MakePayment = () => {
+const Buy = () => {
 
     const dispatch = useDispatch();
     const playersList = useSelector(selectPlayersList);
 
-    const [from, setFrom] = useState(null);
+    const from = 'Bank'
     const [to, setTo] = useState(null);
-    const [amount, setAmount] = useState()
+    const [amount, setAmount] = useState('')
 
     const handleDone = () => {
         if (from !== null && to !== null && amount !== 0) {
             //add logic to move money from one player to another here in PlayersListSlice
-            dispatch(nextCard('Main'))
+            dispatch(sell({from: from, to: to, amount: amount}))
         }
+        dispatch(nextCard('Main'))
     }
 
   return (
     <div className='make-payment'>
-        Make Payment 
+        <h2>Sell</h2>
         <div>
-            <h4>From: {from ? from.name : ''}</h4>
-            {playersList.map((player) => {
-                return (
-                    <button 
-                        key={player.piece} 
-                        onClick={() => setFrom(player)}
-                    >
-                        {player.name}
-                    </button>
-                )
-            })}
-        </div>
-        <div>
-            <h4>To: {to ? to.name : ''}</h4>
-            {playersList.map((player) => {
+            <h4>Player: {to ? to.name : ''}</h4>
+            {playersList.slice(1).map((player) => {
                 return (
                     <button 
                         key={player.piece} 
@@ -57,4 +45,4 @@ const MakePayment = () => {
   )
 }
 
-export default MakePayment
+export default Buy
