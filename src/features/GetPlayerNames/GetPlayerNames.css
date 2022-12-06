@@ -1,0 +1,19 @@
+.get-player-names {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.get-player-names-form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.get-player-names-list {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
