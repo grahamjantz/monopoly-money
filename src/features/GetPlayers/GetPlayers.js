@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { selectPlayersCount, increment, decrement } from '../Players/PlayersCountSlice'
+import { selectPlayersCount, increment, decrement } from '../PlayersList/PlayersListSlice'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 
 import './GetPlayers.css'

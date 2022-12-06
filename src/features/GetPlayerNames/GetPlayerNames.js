@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import './GetPlayerNames.css'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { selectPlayersCount } from '../Players/PlayersCountSlice'
-import { addPlayers } from '../PlayersList/PlayersListSlice'
+// import { selectPlayersCount } from '../Players/PlayersCountSlice'
+import { addPlayers,selectPlayersCount } from '../PlayersList/PlayersListSlice'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 
 let checkPlayersCount = 0
@@ -58,7 +58,7 @@ const GetPlayerNames = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (name !== '' && piece !== '' && piece !== '--Please Choose an Option--' && checkPlayersCount < playersCount) {
-      setPlayers([...players, {name: name, piece: piece}])
+      setPlayers([...players, {name: name, piece: piece, bank: 1500}])
       const tempOptions = options.filter((option) => {
         if (option.value !== piece) {
           return option
@@ -69,7 +69,6 @@ const GetPlayerNames = () => {
       setName('')
       setPiece('')
       checkPlayersCount++;
-      console.log(checkPlayersCount)
     }
   }
 

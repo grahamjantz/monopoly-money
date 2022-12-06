@@ -5,7 +5,8 @@ import GetPlayers from './features/GetPlayers/GetPlayers';
 import Main from './features/main/Main'
 import Header from './features/header/Header';
 import GetPlayerNames from './features/GetPlayerNames/GetPlayerNames';
-import StartingAmount from './features/StartingAmount/StartingAmount'
+import StartingAmount from './features/StartingAmount/StartingAmount';
+import MakePayment from './features/MakePayment/MakePayment';
 
 import { useSelector } from 'react-redux'
 import { selectCurrentCard } from './features/CurrentCard/CurrentCardSlice';
@@ -26,6 +27,8 @@ function App() {
       return <StartingAmount />
     } else if (currentCard === 'Main') {
       return <Main />
+    } else if (currentCard === 'MakePayment') {
+      return <MakePayment />
     }
   }
 

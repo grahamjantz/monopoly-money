@@ -2,20 +2,26 @@ import React from 'react'
 
 import './Main.css'
 
-import { useSelector } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
 import { selectPlayersList } from '../PlayersList/PlayersListSlice'
+import { nextCard } from '../CurrentCard/CurrentCardSlice'
 
 const Main = () => {
+
+  const dispatch = useDispatch()
 
   const playersList = useSelector(selectPlayersList)
   
   const playersListSorted = playersList.slice().sort((a, b) => b.bank - a.bank)
 
+  const handleMakePayment = () => {
+    dispatch(nextCard('MakePayment'))
+  }
+
   return (
     <div className='main'>
       <div className='make-payment'>
-        <button className='payment-button'>
+        <button className='payment-button' onClick={handleMakePayment}>
           Make Payment
         </button>
       </div>
