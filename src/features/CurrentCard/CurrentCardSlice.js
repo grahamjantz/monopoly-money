@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import GetPlayers from "../GetPlayers/GetPlayers";
 
 const initialState = {
     value: 'GetPlayers'
