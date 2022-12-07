@@ -17,8 +17,25 @@
     gap: 10px;    
 }
 
-.leaderboard-small {
+.main-header {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.main-sub-header {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+
+}
+
+.leaderboard-small {
+    width: 70%;
+    min-height: 200px;
     height: fit-content;
     background-color: var(--main-red);
     color: var(--main-white);
@@ -50,6 +67,44 @@
 .leaderboard h2 {
     width: 100%;
     padding: 1rem;
+}
+
+.free-parking-display {
+    width: 30%;
+    min-height: 200px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-red);
+    color: white;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+.free-parking-sub-display {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+}
+
+.free-parking-sub-display button, .pay-out-active button {
+    background-color: var(--dark-green);
+    color: black;
+    font-weight: bold;
+}
+
+.pay-out-active {
+    background-color: var(--main-red);
+    color: white;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+.pay-out-inactive {
+    display: none;
 }
 
 .player-row {
@@ -102,15 +157,6 @@
     justify-content: space-around;
 }
 
-.go-button {
-    height: fit-content;
-    width: auto;
-    background-color: var(--main-red);
-    color: black;
-    font-family: 'Monopoly Bold';
-    font-weight: bold;
-    font-size: 2.5rem;
-}
 
 .actions {
     justify-self: center;
@@ -128,6 +174,33 @@
 
 .action-buttons button {
     width: 50%;
+}
+
+.go-button, .tax-button {
+    height: fit-content;
+    width: 50%;
+    background-color: var(--main-red);
+    color: black;
+    font-family: 'Monopoly Bold';
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.tax-button {
+    background-color: var(--main-blue2);
+    color: white;
+}
+
+.tax-action-button-display {
+
+}
+
+.display-action-true {
+    display: flex;
+}
+
+.display-action-false {
+    display: none;
 }
 
 .lost {

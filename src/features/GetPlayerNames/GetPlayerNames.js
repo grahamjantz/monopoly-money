@@ -54,9 +54,8 @@ const GetPlayerNames = () => {
   const [name, setName] = useState('');
   const [piece, setPiece] = useState('')
   const [players, setPlayers] = useState([{
-    name: 'Bank',
-    piece: 'bank',
-    bank: 1000000000
+    name: 'Free Parking',
+    bank: 0
 },])
   
   const handleSubmit = (e) => {

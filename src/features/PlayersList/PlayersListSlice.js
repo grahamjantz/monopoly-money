@@ -4,9 +4,8 @@ const initialState = {
     count: 2,
     players: [
         {
-            name: 'Bank',
-            piece: 'bank',
-            bank: 1000000000
+            name: 'Free Parking',
+            bank: 0
         },
     ],
     currentPlayer: ''
@@ -20,7 +19,7 @@ export const PlayersListSlice = createSlice({
             state.players = action.payload
         },
         setStartingAmount: (state, action) => {
-            state.players.map((player) => player.bank = Number(action.payload))
+            state.players.slice(1).map((player) => player.bank = Number(action.payload))
             state.players.map((player) => player.net_worth = Number(action.payload))
         },
         increment: (state) => {
@@ -64,7 +63,33 @@ export const PlayersListSlice = createSlice({
                     player.property_value += action.payload.amount
                     player.net_worth === 0 ? player.active = false : player.active = true
                 }
-                return 0
+                return ''
+            })
+        },
+        payToFreeParking: (state, action) => {
+            state.players.map((player) => {
+                if (player.name === state.currentPlayer.name) {
+                    player.bank -= action.payload.amount
+                    player.net_worth -= action.payload.amount
+
+                    player.net_worth === 0 ? player.active = false : player.active = true
+                } 
+                if (player.name === 'Free Parking') {
+                    player.bank += action.payload.amount
+                }
+                return ''
+            })
+        },
+        payOutFreeParking: (state) => {
+            state.players.map((player) => {
+                if (player.name === state.currentPlayer.name) {
+                    player.bank += state.players[0].bank
+                    player.net_worth += state.players[0].bank
+                    state.players[0].bank = 0
+
+                    player.net_worth === 0 ? player.active = false : player.active = true
+                }
+                return ''
             })
         },
         sell: (state, action) => {
@@ -101,11 +126,11 @@ export const PlayersListSlice = createSlice({
         },
         setCurrentPlayer: (state, action) => {
             state.currentPlayer = action.payload
-        }
+        },
     }
 })
 
-export const { addPlayers, setStartingAmount, increment, decrement, makePayment, passGo, buyProperty, sell, trade, setCurrentPlayer } = PlayersListSlice.actions
+export const { addPlayers, setStartingAmount, increment, decrement, makePayment, payToFreeParking, payOutFreeParking, passGo, buyProperty, sell, trade, setCurrentPlayer } = PlayersListSlice.actions
 
 export const selectPlayersList = (state) => state.players_list.players;
 export const selectPlayersCount = (state) => state.players_list.count;

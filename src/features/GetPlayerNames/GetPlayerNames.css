@@ -42,3 +42,10 @@
     color: var(--main-white);
     font-size: 2rem;
 }
+
+.add-player-button:hover {
+    cursor: pointer;
+  background-color: var(--main-white);
+  color: var(--main-blue2);
+  border: 1px solid var(--main-blue2);
+}

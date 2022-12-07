@@ -10,6 +10,7 @@ import Rent from './features/Rent/Rent';
 import Buy from './features/Buy/Buy'
 import Sell from './features/Sell/Sell'
 import Trade from './features/Trade/Trade'
+import Tax from './features/Tax/Tax'
 
 import { useSelector } from 'react-redux'
 import { selectCurrentCard } from './features/CurrentCard/CurrentCardSlice';
@@ -38,6 +39,8 @@ function App() {
       return <Sell />
     } else if (currentCard === 'Trade') {
       return <Trade />
+    } else if (currentCard === 'Tax') {
+      return <Tax />
     }
   }
 
