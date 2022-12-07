@@ -41,7 +41,7 @@ const Main = () => {
         <h2>Leaderboard</h2>
         {playersListSorted.map((player) => {
             return (
-              <div className='player-row' key={player.piece}>
+              <div className={`player-row ${player.net_worth <= 0 ? 'lost' : ''}`} key={player.piece}>               
                 <h3>{player.name}</h3>
                 <div className='player-info'>
                   <h4>Bank: <br/>${player.bank}</h4>

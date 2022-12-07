@@ -72,13 +72,12 @@ export const PlayersListSlice = createSlice({
         },
         trade: (state, action) => {
             state.players.map((player) => {
-                if (player.name.toLowerCase() === action.payload.pOneName.toLowerCase()) {
-                    player.net_worth -= Number(action.payload.pOnePropVal)
-
-                    player.net_worth += Number(action.payload.pTwoPropval)
-                } else if (player.name.toLowerCase() === action.payload.pTwoName.toLowerCase()) {
-                    player.net_worth -= Number(action.payload.pTwoPropval)
-                    player.net_worth += Number(action.payload.pOnePropVal)
+                if (player.name === action.payload.pOneName.name) {
+                    player.net_worth -= action.payload.pOnePropVal
+                    player.net_worth += action.payload.pTwoPropVal
+                } else if (player.name === action.payload.pTwoName.name) {
+                    player.net_worth -= action.payload.pTwoPropVal
+                    player.net_worth += action.payload.pOnePropVal
                 }
                 return 0
             })

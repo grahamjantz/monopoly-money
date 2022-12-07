@@ -5,6 +5,7 @@
 }
 
 .monopoly-logo {
+    min-width: 90%;
     width: 90%;
     height: auto;
 }

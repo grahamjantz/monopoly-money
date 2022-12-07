@@ -97,3 +97,7 @@
 .action-buttons button {
     width: 50%;
 }
+
+.lost {
+    filter: opacity(0.5);
+}
