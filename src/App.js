@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import GetPlayers from './features/GetPlayers/GetPlayers';
+import GetPlayersCount from './features/GetPlayersCount/GetPlayersCount';
 import Main from './features/main/Main'
 import Header from './features/header/Header';
 import GetPlayerNames from './features/GetPlayerNames/GetPlayerNames';
@@ -23,7 +23,7 @@ function App() {
 
   const renderCard = () => {
     if (currentCard === 'GetPlayers') {
-      return <GetPlayers />
+      return <GetPlayersCount />
     } else if (currentCard === 'GetPlayerNames') {
       return <GetPlayerNames />
     } else if (currentCard ==='StartingAmount') {

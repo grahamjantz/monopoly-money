@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './StartingAmount.css'
 
 import { useDispatch } from 'react-redux'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
@@ -33,8 +34,10 @@ const StartingAmount = () => {
             <div>
                 {!acceptPrice ? <input type='number'  placeholder='1500' onChange={handleChange}/> : ''}
             </div>
-            <button onClick={handleYes}>Yes</button>
-            <button onClick={handleNo}>No</button>  
+            <div>
+                <button onClick={handleYes}>Yes</button>
+                <button onClick={handleNo}>No</button>  
+            </div>
         </div>
     )
 }

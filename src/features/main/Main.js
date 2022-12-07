@@ -42,10 +42,7 @@ const Main = () => {
         {playersListSorted.map((player) => {
             return (
               <div className='player-row' key={player.piece}>
-                <div>
-                    <h3>{player.name}</h3>
-                    
-                </div>
+                <h3>{player.name}</h3>
                 <div className='player-info'>
                   <h4>Bank: <br/>${player.bank}</h4>
                   <h4>Net Worth: <br/>${player.net_worth}</h4>
@@ -54,7 +51,7 @@ const Main = () => {
                     onClick={() => dispatch(passGo(player.name))}
                     className='go-button'
                   >
-                    PASS GO
+                    GO
                   </button>
                 <div className='actions'>
                     <div className='action-buttons'>

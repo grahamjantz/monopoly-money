@@ -127,7 +127,7 @@ const GetPlayerNames = () => {
                 )
               })}
             </select>
-            <input type='submit' value='Add Player'/>
+            <input className='add-player-button' type='submit' value='Add Player'/>
             {checkPlayerNumber()}
         </form>
         {players.slice(1).map((player) => {

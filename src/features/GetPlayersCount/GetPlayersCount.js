@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectPlayersCount, increment, decrement } from '../PlayersList/PlayersListSlice'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 
-import './GetPlayers.css'
+import './GetPlayersCount.css'
 
 const GetPlayers = () => {
 

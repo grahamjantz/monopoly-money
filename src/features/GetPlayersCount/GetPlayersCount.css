@@ -1,0 +1,22 @@
+.get-players-card {
+    justify-self: center;
+    height: calc(100vh - 50px);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.set-player-count {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.set-player-count h3 {
+    font-size: 4rem;
+}

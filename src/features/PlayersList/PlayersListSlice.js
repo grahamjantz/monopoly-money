@@ -19,8 +19,8 @@ export const PlayersListSlice = createSlice({
             state.players = action.payload
         },
         setStartingAmount: (state, action) => {
-            state.players.map((player) => player.bank = action.payload)
-            state.players.map((player) => player.net_worth = action.payload)
+            state.players.map((player) => player.bank = Number(action.payload))
+            state.players.map((player) => player.net_worth = Number(action.payload))
         },
         increment: (state) => {
             if (state.count < 8) {
@@ -48,8 +48,8 @@ export const PlayersListSlice = createSlice({
         passGo: (state, action) => {
             state.players.map((player) => {
                 if (player.name === action.payload) {
-                    player.bank += 200
-                    player.net_worth += 200
+                    player.bank += Number(200)
+                    player.net_worth += Number(200)
                 }
                 return 0
             })
