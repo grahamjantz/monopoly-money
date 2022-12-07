@@ -3,21 +3,22 @@ import '../Rent/Rent.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
-import { selectPlayersList, buyProperty } from '../PlayersList/PlayersListSlice'
+import { buyProperty, selectCurrentPlayer } from '../PlayersList/PlayersListSlice'
 
 const Buy = () => {
 
     const dispatch = useDispatch();
-    const playersList = useSelector(selectPlayersList);
+    const currentPlayer = useSelector(selectCurrentPlayer)
 
-    const [from, setFrom] = useState(null);
-    const to = 'Bank'
     const [amount, setAmount] = useState('')
 
     const handleDone = () => {
-        if (from !== null && to !== null && amount !== 0 && from.bank >= amount) {
+        if (
+            currentPlayer !== null && 
+            amount !== 0 && 
+            currentPlayer.bank >= amount) {
             //add logic to move money from one player to another here in PlayersListSlice
-            dispatch(buyProperty({from: from, to: to, amount: Number(amount)}))
+            dispatch(buyProperty({amount: Number(amount)}))
         }
         dispatch(nextCard('Main'))
     }
@@ -26,22 +27,24 @@ const Buy = () => {
     <div className='make-payment'>
         <h2>Buy</h2>
         <div>
-            <h4>Player: {from ? from.name : ''}</h4>
-            {playersList.slice(1).map((player) => {
-                return (
-                    <button 
-                        key={player.piece} 
-                        onClick={() => setFrom(player)}
-                    >
-                        {player.name}
-                    </button>
-                )
-            })}
+            <h4>Player: {currentPlayer.name}</h4>
+            <h5>Bank: ${currentPlayer.bank}</h5>
         </div>
         <label htmlFor='amount'>Amount:</label>
-        <input type='number' name='amount' value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='0'/>
-        {from && from.bank <= amount ? <p>Invalid! Insufficient Funds!</p> : ''}
-        <button onClick={handleDone}>Done</button>
+
+        <input 
+            type='number' 
+            name='amount' 
+            value={amount} 
+            onChange={(e) => setAmount(e.target.value)} 
+            placeholder='0'
+        />
+        {
+            currentPlayer && 
+            currentPlayer.bank <= amount ? 
+            <p>Invalid! Insufficient Funds!</p> : ''
+        }
+        <button onClick={handleDone}>{currentPlayer.bank > amount ? 'Done' : 'Go Back'}</button>
     </div>
   )
 }

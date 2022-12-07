@@ -8,7 +8,8 @@ const initialState = {
             piece: 'bank',
             bank: 1000000000
         },
-    ]
+    ],
+    currentPlayer: ''
 };
 
 export const PlayersListSlice = createSlice({
@@ -34,15 +35,16 @@ export const PlayersListSlice = createSlice({
         }, 
         makePayment: (state, action) => {
             state.players.map((player) => {
-                if (player.name === action.payload.from.name){
+                if (player.name === state.currentPlayer.name){
                     player.bank -= action.payload.amount
                     player.net_worth -= action.payload.amount
+                    player.net_worth === 0 ? player.active = false : player.active = true
                 } 
                 if(player.name === action.payload.to.name){
                     player.bank += action.payload.amount
                     player.net_worth += action.payload.amount
                 }
-                return 0
+                return ''
             })
         }, 
         passGo: (state, action) => {
@@ -50,46 +52,63 @@ export const PlayersListSlice = createSlice({
                 if (player.name === action.payload) {
                     player.bank += Number(200)
                     player.net_worth += Number(200)
+                    player.net_worth === 0 ? player.active = false : player.active = true
                 }
                 return 0
             })
         },
         buyProperty: (state, action) => {
             state.players.map((player) => {
-                if (player.name === action.payload.from.name) {
+                if (player.name === state.currentPlayer.name) {
                     player.bank -= action.payload.amount
                     player.property_value += action.payload.amount
+                    player.net_worth === 0 ? player.active = false : player.active = true
                 }
                 return 0
             })
         },
         sell: (state, action) => {
             state.players.map((player) => {
-                if (player.name === action.payload.to.name) {
+                if (player.name === state.currentPlayer.name) {
                     player.bank += action.payload.amount
                     player.property_value -= action.payload.amount
+                    player.net_worth === 0 ? player.active = false : player.active = true
                 }
                 return 0
             })
         },
         trade: (state, action) => {
             state.players.map((player) => {
-                if (player.name === action.payload.pOneName.name) {
+                if (player.name === state.currentPlayer.name) {
                     player.net_worth -= action.payload.pOnePropVal
                     player.net_worth += action.payload.pTwoPropVal
+
+                    player.property_value -= action.payload.pOnePropVal
+                    player.property_value += action.payload.pTwoPropVal
+
+                    player.net_worth === 0 ? player.active = false : player.active = true
                 } else if (player.name === action.payload.pTwoName.name) {
                     player.net_worth -= action.payload.pTwoPropVal
                     player.net_worth += action.payload.pOnePropVal
+
+                    player.property_value -= action.payload.pTwoPropVal
+                    player.property_value += action.payload.pOnePropVal
+
+                    player.net_worth === 0 ? player.active = false : player.active = true
                 }
                 return 0
             })
+        },
+        setCurrentPlayer: (state, action) => {
+            state.currentPlayer = action.payload
         }
     }
 })
 
-export const { addPlayers, setStartingAmount, increment, decrement, makePayment, passGo, buyProperty, sell, trade } = PlayersListSlice.actions
+export const { addPlayers, setStartingAmount, increment, decrement, makePayment, passGo, buyProperty, sell, trade, setCurrentPlayer } = PlayersListSlice.actions
 
 export const selectPlayersList = (state) => state.players_list.players;
 export const selectPlayersCount = (state) => state.players_list.count;
+export const selectCurrentPlayer = (state) => state.players_list.currentPlayer
 
 export default PlayersListSlice.reducer

@@ -68,6 +68,7 @@ const GetPlayerNames = () => {
         bank: 1500, 
         property_value: 0,
         net_worth: 0,
+        active: true,
       }
     ])
       const tempOptions = options.filter((option) => {
@@ -102,13 +103,10 @@ const GetPlayerNames = () => {
     }
   }
 
-  // const handleGoBack = () => {
-  //   dispatch(nextCard('GetPlayers'))
-  // }
-
   return (
     <div className='get-player-names'>
         <h2>Enter Player Names:</h2>
+        <h3>{checkPlayersCount}/{playersCount} Players Selected</h3>
         <form className='get-player-names-form' onSubmit={handleSubmit}>
 
             <label htmlFor='name'>Enter Name:</label>

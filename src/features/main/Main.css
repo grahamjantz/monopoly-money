@@ -133,3 +133,8 @@
 .lost {
     filter: opacity(0.5);
 }
+
+.inactive {
+    text-decoration: line-through;
+    filter: opacity(0.5)
+}

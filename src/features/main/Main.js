@@ -1,38 +1,46 @@
 import React from 'react'
-
 import './Main.css'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { selectPlayersList, passGo } from '../PlayersList/PlayersListSlice'
+import { selectPlayersList, passGo, setCurrentPlayer } from '../PlayersList/PlayersListSlice'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 
 const Main = () => {
 
-  // const [userPayingRent, setUserPayingRent] = useState(null);
-
-  // console.log(userPayingRent)
-
   const dispatch = useDispatch()
-
   const playersList = useSelector(selectPlayersList)
   
   const playersListSorted = playersList.slice(1).sort((a, b) => b.net_worth - a.net_worth)
 
+  const playersListActiveSorted = playersListSorted.sort((a, b) => b.active - a.active)
+
   const handleClickRent = (player) => {
+    dispatch(setCurrentPlayer(player))
     dispatch(nextCard('MakePayment'))
   }
   
-  const handleClickBuy = () => {
+  const handleClickBuy = (player) => {
+    dispatch(setCurrentPlayer(player))
     dispatch(nextCard('Buy'))
   }
 
-  const handleClickSell = () => {
+  const handleClickSell = (player) => {
+    dispatch(setCurrentPlayer(player))
     dispatch(nextCard('Sell'))
   }
 
-  const handleClickTrade = () => {
+  const handleClickTrade = (player) => {
+    dispatch(setCurrentPlayer(player))
     dispatch(nextCard('Trade'))
   }
+
+  // playersListSorted.map((player) => {
+  //   if (player.net_worth === 0) {
+  //     console.log(player)
+  //     player.active === true ? player.active = false : player.active = true
+  //   } 
+  //   return ''
+  // })
 
   return (
     <div className='main'>
@@ -42,7 +50,10 @@ const Main = () => {
           <ol>
             {playersListSorted.map((player) => {
               return (
-                <li key={player.piece}>
+                <li 
+                  key={player.piece}
+                  className={player.active === false ? 'inactive' : ''}
+                >
                   <h3>{player.name}</h3>
                   <h3>{player.net_worth}</h3>
                 </li>
@@ -50,7 +61,7 @@ const Main = () => {
             })}
           </ol>
         </div>
-        {playersList.slice(1).map((player) => {
+        {playersListActiveSorted.map((player) => {
             return (
               <div className={`player-row ${player.net_worth <= 0 ? 'lost' : ''}`} key={player.piece}>               
                 <h3>{player.name}</h3>
@@ -67,14 +78,14 @@ const Main = () => {
                   </button>
                 <div className='actions'>
                     <div className='action-buttons'>
-                      <button onClick={handleClickRent}>
+                      <button onClick={() => handleClickRent(player)}>
                         RENT
                       </button>
-                      <button onClick={handleClickBuy}>BUY</button>
+                      <button onClick={() => handleClickBuy(player)}>BUY</button>
                     </div>
                     <div className='action-buttons'>
-                      <button onClick={handleClickSell}>SELL</button>
-                      <button onClick={handleClickTrade}>TRADE</button>
+                      <button onClick={() => handleClickSell(player)}>SELL</button>
+                      <button onClick={() => handleClickTrade(player)}>TRADE</button>
                     </div>
                   </div>
                   
