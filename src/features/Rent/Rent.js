@@ -17,7 +17,7 @@ const MakePayment = () => {
     const handleDone = () => {
         if (from !== null && to !== null && amount !== 0) {
             //add logic to move money from one player to another here in PlayersListSlice
-            dispatch(makePayment({from: from, to: to, amount: amount}))
+            dispatch(makePayment({from: from, to: to, amount: Number(amount)}))
         }
         dispatch(nextCard('Main'))
     }

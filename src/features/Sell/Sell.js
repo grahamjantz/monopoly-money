@@ -15,9 +15,9 @@ const Buy = () => {
     const [amount, setAmount] = useState('')
 
     const handleDone = () => {
-        if (from !== null && to !== null && amount !== 0) {
+        if (from !== null && to !== null && amount !== 0 && to.property_value >= amount) {
             //add logic to move money from one player to another here in PlayersListSlice
-            dispatch(sell({from: from, to: to, amount: amount}))
+            dispatch(sell({from: from, to: to, amount: Number(amount)}))
         }
         dispatch(nextCard('Main'))
     }
@@ -40,6 +40,7 @@ const Buy = () => {
         </div>
         <label htmlFor='amount'>Amount:</label>
         <input type='number' name='amount' value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='0'/>
+        {to && to.property_value >= amount ? <p>Invalid! Nothing to Sell!</p> : ''}
         <button onClick={handleDone}>Done</button>
     </div>
   )

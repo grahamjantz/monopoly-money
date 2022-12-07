@@ -45,7 +45,7 @@ const GetPlayers = () => {
             <button onClick={handleIncrement}>+</button>
         </div>
         {renderMessage()}
-        <button onClick={handleDone}>Done</button>
+        <button onClick={handleDone}>Accept</button>
     </div>
   )
 }

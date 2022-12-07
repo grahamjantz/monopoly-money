@@ -39,8 +39,8 @@ export const PlayersListSlice = createSlice({
                     player.net_worth -= action.payload.amount
                 } 
                 if(player.name === action.payload.to.name){
-                    player.bank += Number(action.payload.amount)
-                    player.net_worth += Number(action.payload.amount)
+                    player.bank += action.payload.amount
+                    player.net_worth += action.payload.amount
                 }
                 return 0
             })
@@ -58,6 +58,7 @@ export const PlayersListSlice = createSlice({
             state.players.map((player) => {
                 if (player.name === action.payload.from.name) {
                     player.bank -= action.payload.amount
+                    player.property_value += action.payload.amount
                 }
                 return 0
             })
@@ -65,7 +66,8 @@ export const PlayersListSlice = createSlice({
         sell: (state, action) => {
             state.players.map((player) => {
                 if (player.name === action.payload.to.name) {
-                    player.bank += Number(action.payload.amount)
+                    player.bank += action.payload.amount
+                    player.property_value -= action.payload.amount
                 }
                 return 0
             })

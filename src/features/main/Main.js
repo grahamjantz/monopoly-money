@@ -16,8 +16,7 @@ const Main = () => {
 
   const playersList = useSelector(selectPlayersList)
   
-  const playersListSorted = playersList.slice(1).sort((a, b) => b.bank - a.bank)
-
+  const playersListSorted = playersList.slice(1).sort((a, b) => b.net_worth - a.net_worth)
 
   const handleClickRent = (player) => {
     dispatch(nextCard('MakePayment'))
@@ -38,13 +37,26 @@ const Main = () => {
   return (
     <div className='main'>
       <div className='leaderboard'>
-        <h2>Leaderboard</h2>
-        {playersListSorted.map((player) => {
+        <div className='leaderboard-small'>
+          <h2>Leaderboard</h2>
+          <ol>
+            {playersListSorted.map((player) => {
+              return (
+                <li key={player.piece}>
+                  <h3>{player.name}</h3>
+                  <h3>{player.net_worth}</h3>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+        {playersList.slice(1).map((player) => {
             return (
               <div className={`player-row ${player.net_worth <= 0 ? 'lost' : ''}`} key={player.piece}>               
                 <h3>{player.name}</h3>
                 <div className='player-info'>
                   <h4>Bank: <br/>${player.bank}</h4>
+                  <h4>Property Value: <br/> ${player.property_value}</h4>
                   <h4>Net Worth: <br/>${player.net_worth}</h4>
                 </div>
                 <button 

@@ -66,7 +66,8 @@ const GetPlayerNames = () => {
         name: name, 
         piece: piece, 
         bank: 1500, 
-        net_worth: 1500,
+        property_value: 0,
+        net_worth: 0,
       }
     ])
       const tempOptions = options.filter((option) => {
@@ -101,9 +102,9 @@ const GetPlayerNames = () => {
     }
   }
 
-  const handleGoBack = () => {
-    dispatch(nextCard('GetPlayers'))
-  }
+  // const handleGoBack = () => {
+  //   dispatch(nextCard('GetPlayers'))
+  // }
 
   return (
     <div className='get-player-names'>
@@ -139,7 +140,7 @@ const GetPlayerNames = () => {
             )
         })}
         <button onClick={handleDone}>Done</button>
-        <button onClick={handleGoBack}>Go Back</button>
+        {/* <button onClick={handleGoBack}>Go Back</button> */}
     </div>
   )
 }

@@ -17,12 +17,39 @@
     gap: 10px;    
 }
 
-.leaderboard h2 {
+.leaderboard-small {
     width: 100%;
-    padding: 1rem;
+    height: fit-content;
     background-color: var(--main-red);
     color: var(--main-white);
     border: 1px solid black;
+    list-style-position: inside;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.leaderboard-small ol {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboard-small ol li {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.leaderboard-small ol li:first-of-type {
+    color: var(--dark-green);
+}
+
+.leaderboard h2 {
+    width: 100%;
+    padding: 1rem;
 }
 
 .player-row {
@@ -56,7 +83,7 @@
 
 .player-info {
     width: 100%;
-    height: auto;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -65,9 +92,14 @@
 }
 
 .player-info h4 {
+    height: 100%;
     width: 50%;
     background-color: var(--dark-green);
     padding: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .go-button {

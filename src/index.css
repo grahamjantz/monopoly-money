@@ -21,4 +21,15 @@ code {
 
 html {
   font-size: 10px;
+  overflow-x: hidden;
+}
+
+#root {
+  min-width: 100vw;
+  width: fit-content;
+  min-height: 100vh;
+  height: fit-content;
+  background-color: var(--light-green);
+  display: flex;
+  justify-content: center;
 }
