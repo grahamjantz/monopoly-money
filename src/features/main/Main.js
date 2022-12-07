@@ -12,7 +12,7 @@ const Main = () => {
   
   const playersListSorted = playersList.slice(1).sort((a, b) => b.net_worth - a.net_worth)
 
-  const playersListActiveSorted = playersListSorted.sort((a, b) => b.active - a.active)
+  const playersListActiveSorted = playersList.slice(1).sort((a, b) => b.active - a.active)
 
   const handleClickRent = (player) => {
     dispatch(setCurrentPlayer(player))
