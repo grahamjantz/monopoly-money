@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
+import { AiOutlineClose } from "react-icons/ai";
 import './Trade.css'
-import '../Rent/Rent.css'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { nextCard } from '../CurrentCard/CurrentCardSlice'
 import { selectPlayersList, trade, selectCurrentPlayer } from '../PlayersList/PlayersListSlice'
 
-const Trade = () => {
+const Trade = ({ setDisplayAction }) => {
 
     const dispatch = useDispatch()
     const playersList = useSelector(selectPlayersList)
@@ -36,8 +35,11 @@ const Trade = () => {
           pTwoName: pTwoName,
           pTwoPropVal: Number(pTwoPropVal)
         }))
-      }
-        dispatch(nextCard('Main'))
+    }
+        setDisplayAction(false)
+        setPTwoName(null)
+        setPOnePropVal('')
+        setPTwoPropVal('')
     }
 
     const returnErrMessageInsufficientFunds = () => {
@@ -46,28 +48,30 @@ const Trade = () => {
 
   return (
     <div className='trade'>
+        <AiOutlineClose className='trade-close-button' onClick={handleDone}/>
+        <h2>Trade</h2> 
         <div className='player-divs'>
             <div className='p-one-div'>
                 <div className='p-header'>
                     {
                         currentPlayer ? (
-                            <h4>From: {currentPlayer ? currentPlayer.name : ''}</h4>
+                            <h4>From: {playersList.slice(1).map((player) => {
+                                if(player.name === currentPlayer.name) {
+                                    return (
+                                        <button 
+                                            key={player.piece}
+                                        >
+                                            {player.name}
+                                        </button>
+                                    )
+                                }
+                                return ''
+                            })}</h4>
                         ) : <h4>Please Select Player!</h4>
                     }
                 </div>
 
-                {playersList.slice(1).map((player) => {
-                    if(player.name === currentPlayer.name) {
-                        return (
-                            <button 
-                                key={player.piece}
-                            >
-                                {player.name}
-                            </button>
-                        )
-                    }
-                    return ''
-                        })}
+                
 
                 <label htmlFor='p-one-amount'>{currentPlayer !== null ? currentPlayer.name : ''} Trade Amount:</label>
                 <input 
@@ -90,7 +94,7 @@ const Trade = () => {
                     ''
                 }
             </div>
-
+            <hr />
             <div className='p-two-div'>
                 <div className='p-header'>
                     {
@@ -136,6 +140,7 @@ const Trade = () => {
                     ''
                 }
             </div>
+            <hr/>
         </div>
         <button onClick={handleDone}>Done</button>
     </div>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import '../Rent/Rent.css'
+import { AiOutlineClose } from "react-icons/ai";
+import '../Buy/Buy.css'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { nextCard } from '../CurrentCard/CurrentCardSlice'
 import { buyProperty, selectCurrentPlayer } from '../PlayersList/PlayersListSlice'
 
-const Buy = () => {
+const Buy = ({ setDisplayAction }) => {
 
     const dispatch = useDispatch();
     const currentPlayer = useSelector(selectCurrentPlayer)
@@ -20,31 +20,34 @@ const Buy = () => {
             //add logic to move money from one player to another here in PlayersListSlice
             dispatch(buyProperty({amount: Number(amount)}))
         }
-        dispatch(nextCard('Main'))
+        setDisplayAction(false)
     }
 
   return (
-    <div className='make-payment'>
+    <div className='buy'>
+        <AiOutlineClose className='buy-close-button' onClick={handleDone}/>
         <h2>Buy</h2>
-        <div>
-            <h4>Player: {currentPlayer.name}</h4>
-            <h5>Bank: ${currentPlayer.bank}</h5>
+        <div className='buy-header'>
+            <h4>Player: <br/>{currentPlayer.name}</h4>
+            <h4>Bank: <br/>${currentPlayer.bank}</h4>
         </div>
         <label htmlFor='amount'>Amount:</label>
 
-        <input 
-            type='number' 
-            name='amount' 
-            value={amount} 
-            onChange={(e) => setAmount(e.target.value)} 
-            placeholder='0'
-        />
+        <div className='buy-input'>
+            <input 
+                type='number' 
+                name='amount' 
+                value={amount} 
+                onChange={(e) => setAmount(e.target.value)} 
+                placeholder='0'
+            />
+            <button onClick={handleDone}>{currentPlayer.bank > amount ? 'Done' : 'Go Back'}</button>
+        </div>
         {
             currentPlayer && 
             currentPlayer.bank <= amount ? 
             <p>Invalid! Insufficient Funds!</p> : ''
         }
-        <button onClick={handleDone}>{currentPlayer.bank > amount ? 'Done' : 'Go Back'}</button>
     </div>
   )
 }

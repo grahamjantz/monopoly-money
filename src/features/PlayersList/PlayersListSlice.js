@@ -8,7 +8,8 @@ const initialState = {
             bank: 0
         },
     ],
-    currentPlayer: ''
+    currentPlayer: '',
+    currentAction: '',
 };
 
 export const PlayersListSlice = createSlice({
@@ -127,13 +128,17 @@ export const PlayersListSlice = createSlice({
         setCurrentPlayer: (state, action) => {
             state.currentPlayer = action.payload
         },
+        setCurrentAction: (state, action) => {
+            state.currentAction = action.payload
+        }
     }
 })
 
-export const { addPlayers, setStartingAmount, increment, decrement, makePayment, payToFreeParking, payOutFreeParking, passGo, buyProperty, sell, trade, setCurrentPlayer } = PlayersListSlice.actions
+export const { addPlayers, setStartingAmount, increment, decrement, makePayment, payToFreeParking, payOutFreeParking, passGo, buyProperty, sell, trade, setCurrentPlayer, setCurrentAction } = PlayersListSlice.actions
 
 export const selectPlayersList = (state) => state.players_list.players;
 export const selectPlayersCount = (state) => state.players_list.count;
 export const selectCurrentPlayer = (state) => state.players_list.currentPlayer
+export const selectCurrentAction = (state) => state.players_list.currentAction
 
 export default PlayersListSlice.reducer

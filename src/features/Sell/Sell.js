@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import '../Rent/Rent.css'
+import { AiOutlineClose } from "react-icons/ai";
+import '../Sell/Sell.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 import { sell, selectCurrentPlayer } from '../PlayersList/PlayersListSlice'
 
-const Sell = () => {
+const Sell = ({ setDisplayAction }) => {
 
     const dispatch = useDispatch();
     const currentPlayer = useSelector(selectCurrentPlayer)
@@ -22,25 +23,31 @@ const Sell = () => {
             //add logic to move money from one player to another here in PlayersListSlice
             dispatch(sell({amount: Number(amount)}))
         }
+        setDisplayAction(false)
         dispatch(nextCard('Main'))
     }
 
   return (
-    <div className='make-payment'>
+    <div className='sell'>
+        <AiOutlineClose className='sell-close-button' onClick={handleDone}/>
         <h2>Sell</h2>
-        <div>
-            <h4>Player: {currentPlayer.name}</h4>
-            <h5>Property Value: ${currentPlayer.property_value}</h5>
+        <div className='sell-header'>
+            <h4>Player: <br/>{currentPlayer.name}</h4>
+            <h4>Property Value: <br/> ${currentPlayer.property_value}</h4>
         </div>
         <label htmlFor='amount'>Amount:</label>
 
-        <input 
-            type='number' 
-            name='amount' 
-            value={amount} 
-            onChange={(e) => setAmount(e.target.value)} 
-            placeholder='0'
-        />
+        <div className='sell-input'>
+            <input 
+                type='number' 
+                name='amount' 
+                value={amount} 
+                onChange={(e) => setAmount(e.target.value)} 
+                placeholder='0'
+            />
+
+            <button onClick={handleDone}>{currentPlayer.property_value < amount || currentPlayer.property_value === 0 ? 'Go Back' : 'Done'}</button>
+        </div>
         {
             currentPlayer && 
             currentPlayer.property_value === 0 ? 
@@ -50,8 +57,6 @@ const Sell = () => {
             currentPlayer.property_value < amount ?
             <p>Invalid! Insufficient Funds!</p> : ''
         }
-
-        <button onClick={handleDone}>{currentPlayer.property_value < amount || currentPlayer.property_value === 0 ? 'Go Back' : 'Done'}</button>
     </div>
   )
 }

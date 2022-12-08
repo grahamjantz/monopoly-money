@@ -19,6 +19,7 @@
 
 .main-header {
     width: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -29,14 +30,15 @@
     gap: 2rem;
     align-items: center;
     width: 100%;
-    height: fit-content;
-
+    height: 100%;
 }
 
 .leaderboard-small {
-    width: 70%;
+    width: calc(70% - 2rem);
     min-height: 200px;
     height: fit-content;
+    max-height: 200px;
+    overflow-y: scroll;
     background-color: var(--main-red);
     color: var(--main-white);
     border: 1px solid black;
@@ -44,7 +46,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    padding: 2rem 0;
 }
 
 .leaderboard-small ol {
@@ -72,7 +74,7 @@
 .free-parking-display {
     width: 30%;
     min-height: 200px;
-    height: fit-content;
+    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: var(--main-red);
@@ -83,6 +85,7 @@
 
 .free-parking-sub-display {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -174,6 +177,7 @@
 
 .action-buttons button {
     width: 50%;
+    z-index: 1;
 }
 
 .go-button, .tax-button {
@@ -191,16 +195,26 @@
     color: white;
 }
 
-.tax-action-button-display {
-
-}
-
 .display-action-true {
+    width: 100%;
     display: flex;
+    animation: slideIn 1s ;
+    transition: 1s;
 }
 
 .display-action-false {
     display: none;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-100px)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px)
+    }
 }
 
 .lost {

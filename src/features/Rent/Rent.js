@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
+import { AiOutlineClose } from "react-icons/ai";
 import './Rent.css'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { nextCard } from '../CurrentCard/CurrentCardSlice'
 import { selectPlayersList, makePayment, selectCurrentPlayer } from '../PlayersList/PlayersListSlice'
 
-const MakePayment = () => {
+const Rent = ({ setDisplayAction }) => {
 
     const dispatch = useDispatch();
     const playersList = useSelector(selectPlayersList);
@@ -19,15 +19,16 @@ const MakePayment = () => {
             //add logic to move money from one player to another here in PlayersListSlice
             dispatch(makePayment({to: to, amount: Number(amount)}))
         }
-        dispatch(nextCard('Main'))
+        setDisplayAction(false)
     }
 
   return (
-    <div className='make-payment'>
+    <div className='rent'>
+        <AiOutlineClose className='rent-close-button' onClick={handleDone}/>
         <h2>Pay Rent</h2> 
-        <div>
-            <h4>From: {currentPlayer ? currentPlayer.name : ''}</h4>
-            <h5>Bank: ${currentPlayer.bank}</h5>
+        <div className='rent-header'>
+            <h4>From: <br/>{currentPlayer ? currentPlayer.name : ''}</h4>
+            <h4>Bank: <br/>${currentPlayer.bank}</h4>
         </div>
         <div>
             <h4>To: {to ? to.name : ''}</h4>
@@ -46,10 +47,13 @@ const MakePayment = () => {
             })}
         </div>
         <label htmlFor='amount'>Amount:</label>
-        <input type='number' name='amount' value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='0'/>
-        <button onClick={handleDone}>Done</button>
+        <div className='rent-input'>
+            <input type='number' name='amount' value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='0'/>
+            <button onClick={handleDone}>Done</button>
+
+        </div>
     </div>
   )
 }
 
-export default MakePayment
+export default Rent

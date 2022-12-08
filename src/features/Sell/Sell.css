@@ -1,4 +1,4 @@
-.buy {
+.sell {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -6,34 +6,34 @@
     padding: 1rem;
 }
 
-.buy-close-button {
+.sell-close-button {
     align-self: flex-end;
     width: 30px;
     height: 30px;
     color: red;
 }
 
-.buy-close-button:hover {
+.sell-close-button:hover {
     cursor: pointer;
 }
 
-.buy-header {
+.sell-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.buy-header h4 {
+.sell-header h4 {
     display: flex;
     flex-direction: column;
 }
 
-.buy-input {
+.sell-input {
     display: flex;
     height: fit-content;
     align-items: center;
 }
 
-.buy-input input, .buy-input button {
+.sell-input input, .sell-input button {
     height: 50px;
 }
