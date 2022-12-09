@@ -58,21 +58,19 @@ const Trade = ({ setDisplayAction }) => {
                             <h4>From: {playersList.slice(1).map((player) => {
                                 if(player.name === currentPlayer.name) {
                                     return (
-                                        <button 
-                                            key={player.piece}
-                                        >
-                                            {player.name}
-                                        </button>
+                                        <div key={player.piece}>
+                                            <button>
+                                                {player.name}
+                                            </button>
+                                            <h4>Amount Available for Trade: <br/>${player.property_value}</h4>
+                                        </div>
                                     )
                                 }
                                 return ''
                             })}</h4>
-                        ) : <h4>Please Select Player!</h4>
+                            ) : <h4>Please Select Player!</h4>
                     }
                 </div>
-
-                
-
                 <label htmlFor='p-one-amount'>{currentPlayer !== null ? currentPlayer.name : ''} Trade Amount:</label>
                 <input 
                     type='number' 
@@ -100,18 +98,18 @@ const Trade = ({ setDisplayAction }) => {
                     {
                         pTwoName ? (
                             <h4>To: {pTwoName ? pTwoName.name : ''}</h4>
-                        ) : <h4>Please Select Player!</h4>
-                    }
+                            ) : <h4>Please Select Player!</h4>
+                        }
                     <div className='p-buttons'>
                         {playersList.slice(1).map((player) => {
                             if(player.name !== currentPlayer.name) {
                                 return (
-                                    <button 
-                                        key={player.piece} 
-                                        onClick={() => setPTwoName(player)}
-                                    >
-                                        {player.name}
-                                    </button>
+                                    <div key={player.piece}>
+                                        <button onClick={() => setPTwoName(player)}>
+                                            {player.name}
+                                        </button>
+                                        <h4>Amount Available for Trade: <br />${pTwoName ? pTwoName.property_value : ''}</h4>
+                                    </div>
                                 )
                             }
                             return ''

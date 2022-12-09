@@ -35,7 +35,7 @@ const Sell = ({ setDisplayAction }) => {
             <h4>Player: <br/>{currentPlayer.name}</h4>
             <h4>Property Value: <br/> ${currentPlayer.property_value}</h4>
         </div>
-        <label htmlFor='amount'>Amount:</label>
+        <label htmlFor='amount'>Enter <strong>Mortgage </strong>Amount of Property To Be Sold:</label>
 
         <div className='sell-input'>
             <input 

@@ -97,7 +97,8 @@ export const PlayersListSlice = createSlice({
             state.players.map((player) => {
                 if (player.name === state.currentPlayer.name) {
                     player.bank += action.payload.amount
-                    player.property_value -= action.payload.amount
+                    player.property_value -= (action.payload.amount * 2)
+                    player.net_worth -= action.payload.amount
                     player.net_worth === 0 ? player.active = false : player.active = true
                 }
                 return 0

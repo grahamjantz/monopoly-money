@@ -9,6 +9,7 @@ import StartingAmount from './features/StartingAmount/StartingAmount';
 
 import { useSelector } from 'react-redux'
 import { selectCurrentCard } from './features/CurrentCard/CurrentCardSlice';
+import Footer from './features/Footer/Footer';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
     <div className="App">
       <Header />
       {renderCard()}
+      <Footer />
     </div>
   );
 }
