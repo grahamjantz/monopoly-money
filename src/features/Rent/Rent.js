@@ -15,7 +15,7 @@ const Rent = ({ setDisplayAction }) => {
     const [amount, setAmount] = useState('')
 
     const handleDone = () => {
-        if (currentPlayer !== null && to !== null && amount !== 0) {
+        if (currentPlayer !== null && to !== null && amount > 0) {
             //add logic to move money from one player to another here in PlayersListSlice
             dispatch(makePayment({to: to, amount: Number(amount)}))
         }
@@ -48,10 +48,13 @@ const Rent = ({ setDisplayAction }) => {
         </div>
         <label htmlFor='amount'>Amount:</label>
         <div className='rent-input'>
-            <input type='number' name='amount' value={amount} onChange={(e) => setAmount(e.target.value)} placeholder='0'/>
+            <input type='number' name='amount' value={amount} onChange={(e) => setAmount(Math.round(e.target.value))} placeholder='0'/>
             <button onClick={handleDone}>Done</button>
 
         </div>
+        {
+            amount && amount < 0 ? <p>Invalid! Please enter positive number!</p> : ''
+        }
     </div>
   )
 }

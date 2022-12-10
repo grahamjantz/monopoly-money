@@ -15,7 +15,7 @@ const Tax = ({ setDisplayAction }) => {
     const handleDone = () => {
         if (
             currentPlayer !== null && 
-            amount !== 0 && 
+            amount > 0 && 
             currentPlayer.bank >= amount) {
             //add logic to move money from one player to another here in PlayersListSlice
             dispatch(payToFreeParking({amount: Number(amount)}))
@@ -39,7 +39,7 @@ const Tax = ({ setDisplayAction }) => {
                 type='number' 
                 name='amount' 
                 value={amount} 
-                onChange={(e) => setAmount(e.target.value)} 
+                onChange={(e) => setAmount(Math.round(e.target.value))} 
                 placeholder='0'
             />
             <button onClick={handleDone}>{currentPlayer.bank >= amount ? 'Done' : 'Go Back'}</button>
@@ -48,6 +48,9 @@ const Tax = ({ setDisplayAction }) => {
             currentPlayer && 
             currentPlayer.bank <= amount ? 
             <p>Invalid! Insufficient Funds!</p> : ''
+        }
+        {
+            amount && amount < 0 ? <p>Invalid! Please enter positive number!</p> : ''
         }
     </div>
   )

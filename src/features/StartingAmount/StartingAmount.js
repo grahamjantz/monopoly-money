@@ -14,8 +14,10 @@ const StartingAmount = () => {
 
     const handleYes = () => {
         setAcceptPrice(true)
-        dispatch(setStartingAmount(amount))
-        dispatch(nextCard('Main'))
+        if (amount > 0) {
+            dispatch(setStartingAmount(amount))
+            dispatch(nextCard('Main'))
+        }
     }
     
     const handleNo = () => {
@@ -23,7 +25,7 @@ const StartingAmount = () => {
     }
 
     const handleChange = (e) => {
-        setAmount(e.target.value)
+        setAmount(Math.round(e.target.value))
     }
 
 
@@ -32,12 +34,15 @@ const StartingAmount = () => {
             <h2>Starting Amount: ${amount}</h2>
             <p>Accept?</p>
             <div>
-                {!acceptPrice ? <input type='number'  placeholder='1500' onChange={handleChange}/> : ''}
+                {!acceptPrice ? <input type='number' min='0' placeholder='1500' onChange={handleChange}/> : ''}
             </div>
             <div>
                 <button onClick={handleYes}>Yes</button>
                 <button onClick={handleNo}>No</button>  
             </div>
+            {
+                amount && amount <= 0 ? <p>Invalid! Please enter positive number!</p> : ''
+            }
         </div>
     )
 }

@@ -18,7 +18,7 @@ const Sell = ({ setDisplayAction }) => {
     const handleDone = () => {
         if (
             currentPlayer !== null && 
-            amount !== 0 && 
+            amount > 0 && 
             currentPlayer.property_value >= amount) {
             //add logic to move money from one player to another here in PlayersListSlice
             dispatch(sell({amount: Number(amount)}))
@@ -42,7 +42,7 @@ const Sell = ({ setDisplayAction }) => {
                 type='number' 
                 name='amount' 
                 value={amount} 
-                onChange={(e) => setAmount(e.target.value)} 
+                onChange={(e) => setAmount(Math.round(e.target.value))} 
                 placeholder='0'
             />
 
@@ -56,6 +56,9 @@ const Sell = ({ setDisplayAction }) => {
         {
             currentPlayer.property_value < amount ?
             <p>Invalid! Insufficient Funds!</p> : ''
+        }
+        {
+            amount && amount < 0 ? <p>Invalid! Please enter positive number!</p> : ''
         }
     </div>
   )

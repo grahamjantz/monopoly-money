@@ -76,7 +76,7 @@ const Trade = ({ setDisplayAction }) => {
                     type='number' 
                     name='p-one-amount' 
                     value={pOnePropVal} 
-                    onChange={(e) => setPOnePropVal(e.target.value)} 
+                    onChange={(e) => setPOnePropVal(Math.round(e.target.value))} 
                 />
                 {
                     currentPlayer !== null && 
@@ -90,6 +90,9 @@ const Trade = ({ setDisplayAction }) => {
                     pOnePropVal > currentPlayer.property_value ?
                     returnErrMessageInsufficientFunds():
                     ''
+                }
+                {
+                    pOnePropVal && pOnePropVal < 0 ? <p>Invalid! Please enter positive number!</p> : ''
                 }
             </div>
             <hr />
@@ -122,7 +125,7 @@ const Trade = ({ setDisplayAction }) => {
                     type='number' 
                     name='p-two-amount' 
                     value={pTwoPropVal} 
-                    onChange={(e) => setPTwoPropVal(e.target.value)} 
+                    onChange={(e) => setPTwoPropVal(Math.round(e.target.value))} 
                 />
                 {
                     pTwoName !== null && 
@@ -136,6 +139,9 @@ const Trade = ({ setDisplayAction }) => {
                     pTwoPropVal > pTwoName.property_value ?
                     returnErrMessageInsufficientFunds():
                     ''
+                }
+                {
+                    pTwoPropVal && pTwoPropVal < 0 ? <p>Invalid! Please enter positive number!</p> : ''
                 }
             </div>
             <hr/>
