@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {  getPlayersCount } from "../utils/firebase";
  
 const initialState = {
     count: 2,
@@ -10,7 +11,17 @@ const initialState = {
     ],
     currentPlayer: '',
     currentAction: '',
+    cities: []
 };
+
+export const fetchPlayerCount = createAsyncThunk(
+    'players_list/fetchPlayersCount',
+    async () => {
+        const res = await getPlayersCount()
+        console.log(res)
+        return res
+    }
+)
 
 export const PlayersListSlice = createSlice({
     name: 'players_list',
@@ -131,7 +142,15 @@ export const PlayersListSlice = createSlice({
         },
         setCurrentAction: (state, action) => {
             state.currentAction = action.payload
-        }
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchPlayerCount.fulfilled, (state, action) => {
+            state.count = action.payload[1].value
+        })
+        builder.addCase(fetchPlayerCount.pending, (state) => {
+            state.count = initialState.count
+        })
     }
 })
 

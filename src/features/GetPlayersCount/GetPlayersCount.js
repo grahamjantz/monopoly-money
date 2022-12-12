@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { selectPlayersCount, increment, decrement } from '../PlayersList/PlayersListSlice'
+import { selectPlayersCount, increment, decrement, fetchPlayerCount } from '../PlayersList/PlayersListSlice'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 
 import './GetPlayersCount.css'
 
 const GetPlayers = () => {
-
     const dispatch = useDispatch();
 
     const count = useSelector(selectPlayersCount)
@@ -35,6 +34,25 @@ const GetPlayers = () => {
     const handleDone = () => {
         dispatch(nextCard('GetPlayerNames'))
     }
+
+    useEffect(() => {
+        dispatch(fetchPlayerCount())
+    }, [])
+
+
+    // const [cities, setCities] = useState(null)
+
+    // useEffect(() => {
+    //     const fetchCities = async (db) => {
+    //         const cities = await getCities(db)
+    //         setCities(cities[0].cities)
+    //         return cities
+    //     }
+        
+    //     fetchCities(db)
+    // }, [])
+    
+    // console.log(cities)
 
   return (
     <div className='get-players-card'>
