@@ -14,14 +14,14 @@ const initialState = {
     roomId: ''
 };
 
-export const fetchPlayerCount = createAsyncThunk(
-    'players_list/fetchPlayersCount',
-    async () => {
-        const res = await getPlayersCount()
-        console.log(res)
-        return res
-    }
-)
+// export const fetchPlayerCount = createAsyncThunk(
+//     'players_list/fetchPlayersCount',
+//     async () => {
+//         const res = await getPlayersCount()
+//         console.log(res[0].playerCount)
+//         return res[0].playerCount
+//     }
+// )
 
 export const PlayersListSlice = createSlice({
     name: 'players_list',
@@ -148,16 +148,16 @@ export const PlayersListSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchPlayerCount.fulfilled, (state, action) => {
-            state.count = action.payload.map((doc) => {
-                if (doc.roomId === state.roomId) {
-                    return doc.playerCount
-                }
-            })
-        })
-        builder.addCase(fetchPlayerCount.pending, (state) => {
-            state.count = initialState.count
-        })
+        // builder.addCase(fetchPlayerCount.fulfilled, (state, action) => {
+        //     state.count = action.payload.map((doc) => {
+        //         if (doc.roomId === state.roomId) {
+        //             return doc.playerCount
+        //         }
+        //     })
+        // })
+        // builder.addCase(fetchPlayerCount.pending, (state) => {
+        //     state.count = initialState.count
+        // })
     }
 })
 

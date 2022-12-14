@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './StartingAmount.css'
 
 import { useDispatch } from 'react-redux'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 import { setStartingAmount } from '../PlayersList/PlayersListSlice'
+import { doc, updateDoc } from 'firebase/firestore/lite'
+import { db, getRoom } from '../../utils/firebase'
+import { roomId } from '../InitializeApp/InitializeApp'
 
 const StartingAmount = () => {
 
@@ -11,12 +14,36 @@ const StartingAmount = () => {
 
     const [amount, setAmount] = useState(1500)
     const [acceptPrice, setAcceptPrice] = useState(true)
+    const [playersList, setPlayersList] = useState()
 
-    const handleYes = () => {
+    // const func = async () => {
+    //     const roomFetch = await getRoom()
+    //     setPlayersList(roomFetch[0].playersList)
+    //     return roomFetch
+    //   }
+      
+    //   useEffect(() => {
+    //     func()
+    //   }, [])
+
+
+    const handleYes = async () => {
         setAcceptPrice(true)
         if (amount > 0) {
+            // const playersListMap = playersList.map((player) => {
+            //     if (player.name !== 'Free Parking') {
+            //         player.bank = amount
+            //     }
+            //     return player
+            // })
+
+            const docRef = doc(db, "projects", roomId)
+            await updateDoc(docRef, {
+                "startingAmount": amount
+            })
+
             dispatch(setStartingAmount(amount))
-            dispatch(nextCard('Main'))
+            dispatch(nextCard('GetPlayerInfo'))
         }
     }
     

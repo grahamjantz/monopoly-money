@@ -5,45 +5,43 @@ import { nextCard } from '../CurrentCard/CurrentCardSlice';
 import { addRoomId } from '../PlayersList/PlayersListSlice';
 
 import { doc, setDoc } from "firebase/firestore/lite"; 
-import { db, getPlayersCount } from '../../utils/firebase'
+import { db, getRoom } from '../../utils/firebase'
+
+const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+const generateRoomId = () => {
+    let id = ''
+    const ranIndex = () => {
+        return Math.floor(Math.random() * 26)
+    }
+    for (let i = 0; i < 4; i++) {
+        id += letters[ranIndex()]
+    }
+    return id
+}
+
+export const roomId = generateRoomId()
 
 const InitializeApp = () => {
     const dispatch = useDispatch()
 
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-    const generateRoomId = () => {
-        let id = ''
-        const ranIndex = () => {
-            return Math.floor(Math.random() * 26)
-        }
-        for (let i = 0; i < 4; i++) {
-            id += letters[ranIndex()]
-        }
-        return id
-    }
-
-
-    getPlayersCount()
-
     const handleHostRoom = async () => {
-        const roomId = generateRoomId()
         await setDoc(doc(db, "projects", roomId),{
             roomId: roomId,
             playerCount: 2,
             playersList: [
                 {
                     name: 'Free Parking',
-                    bank: 0
+                    bank: 0,
                 }
             ]
         });
-        dispatch(nextCard('GetPlayersCount'))
+        dispatch(nextCard('StartingAmount'))
         dispatch(addRoomId(roomId))
     }
 
     const handleJoinRoom = () => {
-
+        dispatch(nextCard("JoinRoom"))
     }
   return (
     <div className='initialize-app'>

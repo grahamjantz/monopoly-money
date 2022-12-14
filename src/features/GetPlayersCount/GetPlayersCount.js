@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { selectPlayersCount, increment, decrement, fetchPlayerCount, selectRoomId } from '../PlayersList/PlayersListSlice'
@@ -10,17 +10,27 @@ import { doc, updateDoc } from "firebase/firestore/lite";
 import { db } from '../../utils/firebase'
 
 const GetPlayers = () => {
+    const [count, setCount] = useState(2)
+
     const dispatch = useDispatch();
 
-    const count = useSelector(selectPlayersCount)
+    // const count = useSelector(selectPlayersCount)
     const roomId = useSelector(selectRoomId)
 
     const handleDecrement = () => {
-        dispatch(decrement())
+        if (count > 2 ) {
+            let cnt = count - 1
+            setCount(cnt)
+        }
+        // dispatch(decrement())
     }
 
     const handleIncrement = () => {
-        dispatch(increment())
+        if (count < 8) {
+            let cnt = count + 1
+            setCount(cnt)
+        }
+        // dispatch(increment())
     }
 
     const renderMessage = () => {
@@ -44,9 +54,9 @@ const GetPlayers = () => {
         dispatch(nextCard('GetPlayerNames'))
     }
 
-    useEffect(() => {
-        dispatch(fetchPlayerCount())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchPlayerCount())
+    // }, [dispatch])
 
   return (
     <div className='get-players-card'>

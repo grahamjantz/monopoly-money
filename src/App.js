@@ -4,8 +4,9 @@ import './App.css';
 import GetPlayersCount from './features/GetPlayersCount/GetPlayersCount';
 import Main from './features/main/Main'
 import Header from './features/header/Header';
-import GetPlayerNames from './features/GetPlayerNames/GetPlayerNames';
+import GetPlayerInfo from './features/GetPlayerInfo/GetPlayerInfo';
 import StartingAmount from './features/StartingAmount/StartingAmount';
+import JoinRoom from './features/JoinRoom/JoinRoom';
 
 import { useSelector } from 'react-redux'
 import { selectCurrentCard } from './features/CurrentCard/CurrentCardSlice';
@@ -21,19 +22,23 @@ function App() {
       return <InitializeApp />
     } else if (currentCard === 'GetPlayersCount') {
       return <GetPlayersCount />
-    } else if (currentCard === 'GetPlayerNames') {
-      return <GetPlayerNames />
+    } else if (currentCard === 'GetPlayerInfo') {
+      return <GetPlayerInfo />
     } else if (currentCard ==='StartingAmount') {
       return <StartingAmount />
     } else if (currentCard === 'Main') {
       return <Main />
-    } 
+    } else if (currentCard === 'JoinRoom') {
+      return <JoinRoom />
+    }
   }
 
   return (
     <div className="App">
       <Header />
-      {renderCard()}
+      <div className='render-section'>
+        {renderCard()}
+      </div>
       <Footer />
     </div>
   );

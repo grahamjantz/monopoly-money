@@ -1,20 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './GetPlayerNames.css'
 
-import { useSelector, useDispatch } from 'react-redux'
+import {  useDispatch } from 'react-redux'
 // import { selectPlayersCount } from '../Players/PlayersCountSlice'
-import { addPlayers,selectPlayersCount } from '../PlayersList/PlayersListSlice'
+import { addPlayers,selectPlayersCount, selectRoomId } from '../PlayersList/PlayersListSlice'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
+import { getRoom } from '../../utils/firebase'
+import { db } from '../../utils/firebase'
+import { roomId } from '../InitializeApp/InitializeApp'
+import { updateDoc, doc } from 'firebase/firestore/lite'
 
 let checkPlayersCount = 0
 
 const GetPlayerNames = () => {
-
   const dispatch = useDispatch();
 
-  const playersCount = useSelector(selectPlayersCount)
-
+  // const playersCount = useSelector(selectPlayersCount)
+  
+  const [room, setRoom] = useState()
+  const [playerCount, setPlayerCount] = useState(2)
+  
+  const func = async () => {
+    const roomFetch = await getRoom()
+    setRoom(roomFetch)
+    setPlayerCount(roomFetch[0].playerCount)
+    return roomFetch
+  }
+  
+  useEffect(() => {
+    func()
+  }, [])
+  
   const [options, setOptions] = useState(
     [
       {
@@ -50,17 +67,17 @@ const GetPlayerNames = () => {
         text: 'Wagon'
       },
     ]
-  )
-  const [name, setName] = useState('');
-  const [piece, setPiece] = useState('')
-  const [players, setPlayers] = useState([{
-    name: 'Free Parking',
-    bank: 0
-},])
-  
-  const handleSubmit = (e) => {
+    )
+    const [name, setName] = useState('');
+    const [piece, setPiece] = useState('')
+    const [players, setPlayers] = useState([{
+      name: 'Free Parking',
+      bank: 0
+    },])
+    
+  const handleAddPlayer = (e) => {
     e.preventDefault()
-    if (name !== '' && piece !== '' && piece !== '--Please Choose an Option--' && checkPlayersCount < playersCount) {
+    if (name !== '' && piece !== '' && piece !== '--Please Choose an Option--' && checkPlayersCount < playerCount) {
       setPlayers([...players, {
         name: name, 
         piece: piece, 
@@ -83,15 +100,22 @@ const GetPlayerNames = () => {
     }
   }
 
-  const handleDone = () => {
-    if (players.length === playersCount + 1) {
+  const handleDone = async () => {
+    if (players.length === playerCount + 1) {
+      const data = {
+        playersList: players
+      }
+
+      const docRef = doc(db, "projects", roomId)
+      await updateDoc(docRef, data)
+
       dispatch(addPlayers(players))
       dispatch(nextCard('StartingAmount'))
     }
   }
 
   const checkPlayerNumber = () => {
-    if (checkPlayersCount === playersCount) {
+    if (checkPlayersCount === playerCount) {
       return (
         <p>Maximum Number of Players reached!</p>
       )
@@ -105,8 +129,8 @@ const GetPlayerNames = () => {
   return (
     <div className='get-player-names'>
         <h2>Enter Player Names:</h2>
-        <h3>{checkPlayersCount}/{playersCount} Players Selected</h3>
-        <form className='get-player-names-form' onSubmit={handleSubmit}>
+        <h3>{checkPlayersCount}/{playerCount} Players Selected</h3>
+        <form className='get-player-names-form' onSubmit={handleAddPlayer}>
 
             <label htmlFor='name'>Enter Name:</label>
             <input type='text' placeholder='Name' name='name' value={name} onChange={(e) => setName(e.target.value)}/>
