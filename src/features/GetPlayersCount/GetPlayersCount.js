@@ -54,10 +54,6 @@ const GetPlayers = () => {
         dispatch(nextCard('GetPlayerNames'))
     }
 
-    // useEffect(() => {
-    //     dispatch(fetchPlayerCount())
-    // }, [dispatch])
-
   return (
     <div className='get-players-card'>
         <h2>How Many Players?</h2>

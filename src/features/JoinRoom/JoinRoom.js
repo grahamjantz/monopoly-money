@@ -15,6 +15,7 @@ const JoinRoom = () => {
         e.preventDefault()
         console.log(roomCode)
         getRoom()
+        dispatch(addRoomId(roomCode.toUpperCase()))
         dispatch(nextCard('GetPlayerInfo'))
         setRoomCode('')
     }
@@ -28,7 +29,6 @@ const JoinRoom = () => {
             return room
           }
         })
-        dispatch(addRoomId(roomCode.toUpperCase()))
         return room
       }
     

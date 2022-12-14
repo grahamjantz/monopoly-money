@@ -7,6 +7,7 @@ import Header from './features/header/Header';
 import GetPlayerInfo from './features/GetPlayerInfo/GetPlayerInfo';
 import StartingAmount from './features/StartingAmount/StartingAmount';
 import JoinRoom from './features/JoinRoom/JoinRoom';
+import Lobby from './features/Lobby/Lobby';
 
 import { useSelector } from 'react-redux'
 import { selectCurrentCard } from './features/CurrentCard/CurrentCardSlice';
@@ -30,6 +31,8 @@ function App() {
       return <Main />
     } else if (currentCard === 'JoinRoom') {
       return <JoinRoom />
+    } else if (currentCard === 'Lobby') {
+      return <Lobby />
     }
   }
 

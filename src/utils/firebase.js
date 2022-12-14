@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
+import { query, onSnapshot } from 'firebase/firestore'
 import { roomId } from "../features/InitializeApp/InitializeApp";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -32,3 +33,9 @@ export async function getRoom() {
   })
   return room
 }
+
+export const streamGroceryListItems = (roomId, snapshot, error) => {
+    const colRef = collection(db, 'projects', roomId)
+    const itemsQuery = query(colRef)
+    return onSnapshot(itemsQuery, snapshot, error);
+};
