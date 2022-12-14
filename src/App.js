@@ -10,13 +10,16 @@ import StartingAmount from './features/StartingAmount/StartingAmount';
 import { useSelector } from 'react-redux'
 import { selectCurrentCard } from './features/CurrentCard/CurrentCardSlice';
 import Footer from './features/Footer/Footer';
+import InitializeApp from './features/InitializeApp/InitializeApp';
 
 function App() {
 
   const currentCard = useSelector(selectCurrentCard)
 
   const renderCard = () => {
-    if (currentCard === 'GetPlayers') {
+    if (currentCard === 'InitializeApp') {
+      return <InitializeApp />
+    } else if (currentCard === 'GetPlayersCount') {
       return <GetPlayersCount />
     } else if (currentCard === 'GetPlayerNames') {
       return <GetPlayerNames />

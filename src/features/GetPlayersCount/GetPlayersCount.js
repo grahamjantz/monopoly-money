@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { selectPlayersCount, increment, decrement, fetchPlayerCount } from '../PlayersList/PlayersListSlice'
+import { selectPlayersCount, increment, decrement, fetchPlayerCount, selectRoomId } from '../PlayersList/PlayersListSlice'
 import { nextCard } from '../CurrentCard/CurrentCardSlice'
 
 import './GetPlayersCount.css'
+
+import { doc, updateDoc } from "firebase/firestore/lite"; 
+import { db } from '../../utils/firebase'
 
 const GetPlayers = () => {
     const dispatch = useDispatch();
 
     const count = useSelector(selectPlayersCount)
+    const roomId = useSelector(selectRoomId)
 
     const handleDecrement = () => {
         dispatch(decrement())
@@ -31,28 +35,18 @@ const GetPlayers = () => {
         }
     }
 
-    const handleDone = () => {
+    const handleDone = async () => {
+        const data = {
+            playerCount: count
+        }
+        const docRef = doc(db, "projects", roomId)
+        await updateDoc(docRef, data)
         dispatch(nextCard('GetPlayerNames'))
     }
 
     useEffect(() => {
         dispatch(fetchPlayerCount())
-    }, [])
-
-
-    // const [cities, setCities] = useState(null)
-
-    // useEffect(() => {
-    //     const fetchCities = async (db) => {
-    //         const cities = await getCities(db)
-    //         setCities(cities[0].cities)
-    //         return cities
-    //     }
-        
-    //     fetchCities(db)
-    // }, [])
-    
-    // console.log(cities)
+    }, [dispatch])
 
   return (
     <div className='get-players-card'>

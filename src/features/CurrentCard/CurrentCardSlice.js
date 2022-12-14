@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: 'GetPlayers'
+    value: 'InitializeApp'
 }
 
 export const CurrentCardSlice = createSlice({

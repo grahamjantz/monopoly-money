@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {  getPlayersCount } from "../utils/firebase";
+import {  getPlayersCount } from "../../utils/firebase";
  
 const initialState = {
     count: 2,
@@ -11,7 +11,7 @@ const initialState = {
     ],
     currentPlayer: '',
     currentAction: '',
-    cities: []
+    roomId: ''
 };
 
 export const fetchPlayerCount = createAsyncThunk(
@@ -27,6 +27,9 @@ export const PlayersListSlice = createSlice({
     name: 'players_list',
     initialState,
     reducers: {
+        addRoomId: (state, action) => {
+            state.roomId = action.payload
+        },
         addPlayers: (state, action) => {
             state.players = action.payload
         },
@@ -146,7 +149,11 @@ export const PlayersListSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchPlayerCount.fulfilled, (state, action) => {
-            state.count = action.payload[1].value
+            state.count = action.payload.map((doc) => {
+                if (doc.roomId === state.roomId) {
+                    return doc.playerCount
+                }
+            })
         })
         builder.addCase(fetchPlayerCount.pending, (state) => {
             state.count = initialState.count
@@ -154,11 +161,12 @@ export const PlayersListSlice = createSlice({
     }
 })
 
-export const { addPlayers, setStartingAmount, increment, decrement, makePayment, payToFreeParking, payOutFreeParking, passGo, buyProperty, sell, trade, setCurrentPlayer, setCurrentAction } = PlayersListSlice.actions
+export const { addRoomId, addPlayers, setStartingAmount, increment, decrement, makePayment, payToFreeParking, payOutFreeParking, passGo, buyProperty, sell, trade, setCurrentPlayer, setCurrentAction } = PlayersListSlice.actions
 
 export const selectPlayersList = (state) => state.players_list.players;
 export const selectPlayersCount = (state) => state.players_list.count;
 export const selectCurrentPlayer = (state) => state.players_list.currentPlayer
 export const selectCurrentAction = (state) => state.players_list.currentAction
+export const selectRoomId = (state) => state.players_list.roomId
 
 export default PlayersListSlice.reducer
